@@ -927,11 +927,10 @@
 
         <h2 class="section-title" id="jeux">🎮 Nos Jeux</h2>
 
-       <div class="game-box"
-     <button onclick="window.open('https://scratch.mit.edu/projects/1270756542/', '_blank')">
-  <p><strong>Jeu 1</strong> – Dessinator</p>
-</div>
-
+        <div class="game-container">
+            <div class="game-box" onclick="window.location.href='dessinator.html'">
+                <p><strong>Jeu 1</strong> - Dessinator</p>
+            </div>
             <div class="game-box">
                 <p><strong>Jeu 2</strong> - février 2026</p>
             </div>
@@ -1144,7 +1143,7 @@
                 });
             });
         });
-prend la première game-box comme bouton Scratch const scratchCard = document.querySelector('.game-box'); if (!scratchCard) return; // Conteneur du jeu Scratch (caché au départ) const gameContainer = document.createElement('div'); gameContainer.id = 'scratch-container'; gameContainer.style.display = 'none'; gameContainer.style.marginTop = '20px'; // Intégration du projet Scratch gameContainer.innerHTML = ` <iframe src="https://scratch.mit.edu/projects/1270756542/embed" width="485" height="402" frameborder="0" allowfullscreen> </iframe> `; // Ajout à la page document.body.appendChild(gameContainer); // Affichage du jeu au clic scratchCard.addEventListener('click', () => { gameContainer.style.display = 'block'; }); }); 
-</script>
-</style>
+    </script>
+
 </body></html>
+
