@@ -1,0 +1,1148 @@
+<html lang="fr"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyGames</title>
+    <link rel="icon" type="image/png" href="Logo SKYGAMES.png">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&amp;display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================
+           🌈 VARIABLES RGB GLOBALES
+        ========================================================== */
+        :root {
+            --rgb-1: #ff0000;
+            --rgb-2: #ff7700;
+            --rgb-3: #ffff00;
+            --rgb-4: #00ff00;
+            --rgb-5: #00ffff;
+            --rgb-6: #0077ff;
+            --rgb-7: #7700ff;
+            --rgb-8: #ff00ff;
+        }
+
+        /* ==========================================================
+           🌌 FOND ÉTOILÉ
+        ========================================================== */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Orbitron', sans-serif;
+            color: white;
+            background: linear-gradient(180deg, #02142c, #00101e, #000b17);
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite alternate;
+        }
+
+        /* ⭐ Étoiles RGB */
+        .star.rgb {
+            animation: twinkle 3s infinite alternate, starRGB 2s linear infinite;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes starRGB {
+            0% { background-color: #ff0000; box-shadow: 0 0 10px #ff0000; }
+            16% { background-color: #ffff00; box-shadow: 0 0 10px #ffff00; }
+            33% { background-color: #00ff00; box-shadow: 0 0 10px #00ff00; }
+            50% { background-color: #00ffff; box-shadow: 0 0 10px #00ffff; }
+            66% { background-color: #0000ff; box-shadow: 0 0 10px #0000ff; }
+            83% { background-color: #ff00ff; box-shadow: 0 0 10px #ff00ff; }
+            100% { background-color: #ff0000; box-shadow: 0 0 10px #ff0000; }
+        }
+
+        /* ==========================================================
+           🌈 LASERS RGB AMÉLIORÉS
+        ========================================================== */
+        .laser-horizontal {
+            position: fixed;
+            width: 100vw;
+            height: 4px;
+            background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, purple, red);
+            background-size: 400%;
+            animation: rgbLaserH 4s linear infinite;
+            filter: drop-shadow(0 0 8px cyan);
+            opacity: 0.7;
+            z-index: -1;
+        }
+
+        #laser1 { 
+            top: 20%; 
+            animation: rgbLaserH 3s linear infinite, floatLaser 8s ease-in-out infinite;
+        }
+        #laser2 { 
+            top: 50%; 
+            animation: rgbLaserH 4s linear infinite 1s, floatLaser 10s ease-in-out infinite 1s;
+        }
+        #laser3 { 
+            top: 80%; 
+            animation: rgbLaserH 5s linear infinite 2s, floatLaser 12s ease-in-out infinite 2s;
+        }
+
+        @keyframes rgbLaserH {
+            from { background-position: 0%; }
+            to { background-position: 400%; }
+        }
+
+        @keyframes floatLaser {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .laser-diagonal {
+            position: fixed;
+            width: 200vw;
+            height: 3px;
+            background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, purple, red);
+            background-size: 400%;
+            animation: rgbLaserD 6s linear infinite;
+            filter: drop-shadow(0 0 10px cyan);
+            opacity: 0.6;
+            transform: rotate(35deg);
+            z-index: -1;
+        }
+
+        #laserD1 { 
+            top: 10%; 
+            left: -50%; 
+            animation: rgbLaserD 5s linear infinite, moveDiagonal 15s linear infinite;
+        }
+        #laserD2 { 
+            top: 60%; 
+            left: -50%; 
+            animation: rgbLaserD 7s linear infinite 1.5s, moveDiagonal 18s linear infinite 2s;
+        }
+
+        @keyframes rgbLaserD {
+            from { background-position: 0%; }
+            to { background-position: 400%; }
+        }
+
+        @keyframes moveDiagonal {
+            from { transform: rotate(35deg) translateX(0); }
+            to { transform: rotate(35deg) translateX(100px); }
+        }
+
+        /* ==========================================================
+           🌈 NOUVEAUX LASERS VERTICAUX RGB
+        ========================================================== */
+        .laser-vertical {
+            position: fixed;
+            width: 3px;
+            height: 100vh;
+            background: linear-gradient(180deg, red, orange, yellow, green, cyan, blue, purple, red);
+            background-size: 400% 400%;
+            animation: rgbLaserV 4s linear infinite;
+            filter: drop-shadow(0 0 10px magenta);
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        #laserV1 { left: 5%; animation: rgbLaserV 3s linear infinite, floatLaserV 10s ease-in-out infinite; }
+        #laserV2 { left: 95%; animation: rgbLaserV 4s linear infinite 1s, floatLaserV 12s ease-in-out infinite 2s; }
+
+        @keyframes rgbLaserV {
+            from { background-position: 0% 0%; }
+            to { background-position: 0% 400%; }
+        }
+
+        @keyframes floatLaserV {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(15px); }
+        }
+
+        /* ==========================================================
+           🔴 BOUTON MENU 3 POINTS
+        ========================================================== */
+        .menu-dots-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 55px;
+            height: 55px;
+            background: rgba(0, 10, 25, 0.85);
+            border: 3px solid transparent;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            animation: borderRGB 3s linear infinite;
+            box-shadow: 0 0 20px rgba(0, 234, 255, 0.5), inset 0 0 15px rgba(0, 234, 255, 0.1);
+        }
+
+        @keyframes borderRGB {
+            0% { border-color: #ff0000; box-shadow: 0 0 25px #ff0000, inset 0 0 15px rgba(255, 0, 0, 0.2); }
+            16% { border-color: #ffff00; box-shadow: 0 0 25px #ffff00, inset 0 0 15px rgba(255, 255, 0, 0.2); }
+            33% { border-color: #00ff00; box-shadow: 0 0 25px #00ff00, inset 0 0 15px rgba(0, 255, 0, 0.2); }
+            50% { border-color: #00ffff; box-shadow: 0 0 25px #00ffff, inset 0 0 15px rgba(0, 255, 255, 0.2); }
+            66% { border-color: #0000ff; box-shadow: 0 0 25px #0000ff, inset 0 0 15px rgba(0, 0, 255, 0.2); }
+            83% { border-color: #ff00ff; box-shadow: 0 0 25px #ff00ff, inset 0 0 15px rgba(255, 0, 255, 0.2); }
+            100% { border-color: #ff0000; box-shadow: 0 0 25px #ff0000, inset 0 0 15px rgba(255, 0, 0, 0.2); }
+        }
+
+        .menu-dots-btn:hover {
+            transform: scale(1.15) rotate(90deg);
+        }
+
+        .menu-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00eaff;
+            animation: dotRGB 2s linear infinite;
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        .menu-dot:nth-child(1) { animation-delay: 0s; }
+        .menu-dot:nth-child(2) { animation-delay: 0.3s; }
+        .menu-dot:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes dotRGB {
+            0% { background: #ff0000; box-shadow: 0 0 10px #ff0000; }
+            25% { background: #00ff00; box-shadow: 0 0 10px #00ff00; }
+            50% { background: #0000ff; box-shadow: 0 0 10px #0000ff; }
+            75% { background: #ff00ff; box-shadow: 0 0 10px #ff00ff; }
+            100% { background: #ff0000; box-shadow: 0 0 10px #ff0000; }
+        }
+
+        /* Animation X quand actif */
+        .menu-dots-btn.active {
+            transform: scale(1.1);
+        }
+
+        .menu-dots-btn.active .menu-dot {
+            position: absolute;
+        }
+
+        .menu-dots-btn.active .menu-dot:nth-child(1) {
+            transform: rotate(45deg) translateX(0);
+            width: 25px;
+            height: 4px;
+            border-radius: 2px;
+        }
+
+        .menu-dots-btn.active .menu-dot:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-dots-btn.active .menu-dot:nth-child(3) {
+            transform: rotate(-45deg) translateX(0);
+            width: 25px;
+            height: 4px;
+            border-radius: 2px;
+        }
+
+        /* ==========================================================
+           BARRE LATÉRALE RGB
+        ========================================================== */
+        .sidebar {
+            height: 100vh;
+            width: 260px;
+            background: rgba(0, 10, 25, 0.75);
+            backdrop-filter: blur(15px);
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding-top: 80px;
+            box-shadow: 0 0 30px rgba(0, 234, 255, 0.4);
+            border-right: 3px solid;
+            border-image: linear-gradient(180deg, #ff0000, #ff7700, #ffff00, #00ff00, #00ffff, #0077ff, #7700ff, #ff00ff) 1;
+            animation: sidebarBorderRGB 4s linear infinite;
+            z-index: 999;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-100%);
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        @keyframes sidebarBorderRGB {
+            0% { border-image: linear-gradient(180deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000) 1; }
+            50% { border-image: linear-gradient(180deg, #00ffff, #0000ff, #ff00ff, #ff0000, #ffff00, #00ff00, #00ffff) 1; }
+            100% { border-image: linear-gradient(180deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000) 1; }
+        }
+
+        .sidebar-title {
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 30px;
+            background: linear-gradient(90deg, #ff0000, #ff7700, #ffff00, #00ff00, #00ffff, #0077ff, #7700ff, #ff00ff, #ff0000);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbowText 3s linear infinite;
+        }
+
+        @keyframes rainbowText {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 25px;
+            font-size: 18px;
+            color: #77eaff;
+            text-decoration: none;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+            margin: 5px 15px;
+            border-radius: 10px;
+        }
+
+        .sidebar a:hover {
+            background: linear-gradient(90deg, rgba(255, 0, 0, 0.2), rgba(0, 255, 0, 0.2), rgba(0, 0, 255, 0.2));
+            color: white;
+            text-shadow: 0 0 10px #00eaff;
+            transform: translateX(10px);
+            box-shadow: 0 0 20px rgba(0, 234, 255, 0.3);
+        }
+
+        .sidebar a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(180deg, #ff0000, #00ff00, #0000ff, #ff00ff);
+            background-size: 100% 400%;
+            animation: rgbBar 2s linear infinite;
+            transform: scaleY(0);
+            transition: transform 0.3s;
+        }
+
+        .sidebar a:hover::before {
+            transform: scaleY(1);
+        }
+
+        @keyframes rgbBar {
+            from { background-position: 0% 0%; }
+            to { background-position: 0% 400%; }
+        }
+
+        .sidebar a .icon {
+            font-size: 24px;
+            animation: iconPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* ==========================================================
+           CONTENU PRINCIPAL
+        ========================================================== */
+        .content {
+            margin-left: 0;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .content.shifted {
+            margin-left: 260px;
+        }
+
+        .logo {
+            width: 280px;
+            border-radius: 20px;
+            box-shadow: 0 0 30px #00eaff;
+            transition: transform 0.5s, box-shadow 0.5s;
+            margin-bottom: 20px;
+            animation: logoRGB 5s linear infinite;
+        }
+
+        @keyframes logoRGB {
+            0% { box-shadow: 0 0 30px #ff0000, 0 0 60px #ff000055; }
+            16% { box-shadow: 0 0 30px #ffff00, 0 0 60px #ffff0055; }
+            33% { box-shadow: 0 0 30px #00ff00, 0 0 60px #00ff0055; }
+            50% { box-shadow: 0 0 30px #00ffff, 0 0 60px #00ffff55; }
+            66% { box-shadow: 0 0 30px #0000ff, 0 0 60px #0000ff55; }
+            83% { box-shadow: 0 0 30px #ff00ff, 0 0 60px #ff00ff55; }
+            100% { box-shadow: 0 0 30px #ff0000, 0 0 60px #ff000055; }
+        }
+
+        .logo:hover {
+            transform: scale(1.08) rotate(2deg);
+        }
+
+        h1 {
+            font-size: 55px;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #ff0000, #ff7700, #ffff00, #00ff00, #00ffff, #0077ff, #7700ff, #ff00ff, #ff0000);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbowText 4s linear infinite, pulseTitle 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(0, 234, 255, 0.5));
+        }
+
+        @keyframes pulseTitle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        p {
+            font-size: 22px;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto 20px;
+        }
+
+        .subtitle {
+            background: linear-gradient(90deg, #00ffff, #0088ff, #00ffff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbowText 3s linear infinite;
+        }
+
+        /* ==========================================================
+           SECTION TITRE JEUX
+        ========================================================== */
+        .section-title {
+            font-size: 40px;
+            margin: 50px 0 30px;
+            text-align: center;
+            background: linear-gradient(90deg, #ff0000, #ff7700, #ffff00, #00ff00, #00ffff, #0077ff, #7700ff, #ff00ff, #ff0000);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbowText 3s linear infinite;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 3px;
+            background: linear-gradient(90deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
+            background-size: 200% auto;
+            animation: rainbowText 2s linear infinite;
+            border-radius: 2px;
+        }
+
+        /* ==========================================================
+           CONTENEUR DE JEUX RGB
+        ========================================================== */
+        .game-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .game-box {
+            width: 280px;
+            padding: 25px;
+            border-radius: 20px;
+            background: rgba(0, 15, 35, 0.75);
+            border: 2px solid transparent;
+            backdrop-filter: blur(10px);
+            transition: 0.4s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: gameBoxRGB 4s linear infinite;
+        }
+
+        @keyframes gameBoxRGB {
+            0% { border-color: #ff0000; box-shadow: 0 0 20px #ff000044, inset 0 0 30px #ff000011; }
+            16% { border-color: #ffff00; box-shadow: 0 0 20px #ffff0044, inset 0 0 30px #ffff0011; }
+            33% { border-color: #00ff00; box-shadow: 0 0 20px #00ff0044, inset 0 0 30px #00ff0011; }
+            50% { border-color: #00ffff; box-shadow: 0 0 20px #00ffff44, inset 0 0 30px #00ffff11; }
+            66% { border-color: #0000ff; box-shadow: 0 0 20px #0000ff44, inset 0 0 30px #0000ff11; }
+            83% { border-color: #ff00ff; box-shadow: 0 0 20px #ff00ff44, inset 0 0 30px #ff00ff11; }
+            100% { border-color: #ff0000; box-shadow: 0 0 20px #ff000044, inset 0 0 30px #ff000011; }
+        }
+
+        .game-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, #ff0000, transparent, #00ff00, transparent, #0000ff, transparent);
+            animation: rotateBG 4s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .game-box:hover::before {
+            opacity: 0.1;
+        }
+
+        @keyframes rotateBG {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .game-box::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            background: rgba(0, 15, 35, 0.9);
+            border-radius: 18px;
+            z-index: -1;
+        }
+
+        .game-box:hover {
+            transform: scale(1.08) translateY(-10px);
+            box-shadow: 0 0 40px #00eaff, 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .game-box p {
+            font-size: 20px;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .game-box strong {
+            background: linear-gradient(90deg, #00ffff, #ff00ff, #00ffff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbowText 2s linear infinite;
+        }
+
+        /* ==========================================================
+           🪟 FENÊTRE POPUP CONTACT
+        ========================================================== */
+        .contact-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s, visibility 0.4s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .contact-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .contact-modal {
+            background: linear-gradient(135deg, rgba(0, 20, 50, 0.95), rgba(0, 10, 30, 0.98));
+            border-radius: 25px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            border: 3px solid transparent;
+            animation: modalBorderRGB 3s linear infinite;
+            transform: scale(0.8) translateY(50px);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 0 50px rgba(0, 234, 255, 0.3), 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .contact-overlay.active .contact-modal {
+            transform: scale(1) translateY(0);
+        }
+
+        @keyframes modalBorderRGB {
+            0% { border-color: #ff0000; box-shadow: 0 0 50px #ff000044, inset 0 0 50px #ff000011; }
+            16% { border-color: #ffff00; box-shadow: 0 0 50px #ffff0044, inset 0 0 50px #ffff0011; }
+            33% { border-color: #00ff00; box-shadow: 0 0 50px #00ff0044, inset 0 0 50px #00ff0011; }
+            50% { border-color: #00ffff; box-shadow: 0 0 50px #00ffff44, inset 0 0 50px #00ffff11; }
+            66% { border-color: #0000ff; box-shadow: 0 0 50px #0000ff44, inset 0 0 50px #0000ff11; }
+            83% { border-color: #ff00ff; box-shadow: 0 0 50px #ff00ff44, inset 0 0 50px #ff00ff11; }
+            100% { border-color: #ff0000; box-shadow: 0 0 50px #ff000044, inset 0 0 50px #ff000011; }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s;
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg) scale(1.2);
+        }
+
+        .close-modal::before,
+        .close-modal::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff0000, #ff00ff);
+            border-radius: 2px;
+            animation: closeRGB 2s linear infinite;
+        }
+
+        .close-modal::before { transform: rotate(45deg); }
+        .close-modal::after { transform: rotate(-45deg); }
+
+        @keyframes closeRGB {
+            0% { background: linear-gradient(90deg, #ff0000, #ffff00); }
+            33% { background: linear-gradient(90deg, #00ff00, #00ffff); }
+            66% { background: linear-gradient(90deg, #0000ff, #ff00ff); }
+            100% { background: linear-gradient(90deg, #ff0000, #ffff00); }
+        }
+
+        .contact-modal h2 {
+            text-align: center;
+            font-size: 35px;
+            margin-bottom: 30px;
+            background: linear-gradient(90deg, #ff0000, #ff7700, #ffff00, #00ff00, #00ffff, #0077ff, #7700ff, #ff00ff, #ff0000);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbowText 3s linear infinite;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            margin: 15px 0;
+            background: rgba(0, 30, 60, 0.5);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 234, 255, 0.3);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+            background: rgba(0, 50, 100, 0.5);
+            box-shadow: 0 0 20px rgba(0, 234, 255, 0.3);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            background: linear-gradient(135deg, #00eaff, #0088ff);
+            animation: iconBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes iconBounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .contact-item:nth-child(1) .contact-icon { background: linear-gradient(135deg, #ff6b6b, #ff0000); }
+        .contact-item:nth-child(2) .contact-icon { background: linear-gradient(135deg, #00ff88, #00cc66); }
+        .contact-item:nth-child(3) .contact-icon { background: linear-gradient(135deg, #ff00ff, #cc00ff); }
+
+        .contact-text {
+            flex: 1;
+        }
+
+        .contact-text strong {
+            display: block;
+            color: #00eaff;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .contact-text span {
+            font-size: 18px;
+            color: white;
+        }
+
+        /* ==========================================================
+           🎆 PARTICULES RGB FLOTTANTES
+        ========================================================== */
+        .rgb-particle {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            animation: floatParticle 15s infinite ease-in-out;
+        }
+
+        @keyframes floatParticle {
+            0%, 100% { 
+                transform: translateY(100vh) rotate(0deg); 
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { 
+                transform: translateY(-100px) rotate(720deg); 
+                opacity: 0;
+            }
+        }
+
+        /* ==========================================================
+           OVERLAY POUR MOBILE
+        ========================================================== */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(3px);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s, visibility 0.4s;
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ==========================================================
+           RESPONSIVE DESIGN
+        ========================================================== */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 280px;
+            }
+            
+            .content.shifted {
+                margin-left: 0;
+            }
+            
+            .content {
+                padding: 80px 20px 20px;
+            }
+            
+            h1 {
+                font-size: 35px;
+            }
+            
+            .logo {
+                width: 200px;
+            }
+            
+            .game-container {
+                gap: 15px;
+            }
+            
+            .game-box {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .contact-modal {
+                padding: 25px;
+                margin: 20px;
+            }
+
+            .contact-modal h2 {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 28px;
+            }
+            
+            p {
+                font-size: 16px;
+            }
+            
+            .sidebar a {
+                padding: 15px 20px;
+                font-size: 16px;
+            }
+            
+            .menu-dots-btn {
+                width: 48px;
+                height: 48px;
+                top: 15px;
+                left: 15px;
+            }
+
+            .menu-dot {
+                width: 6px;
+                height: 6px;
+            }
+        }
+    </style>
+</head>
+<body style="">
+
+    <!-- ==========================================================
+         🌌 FOND ÉTOILÉ
+    =========================================================== -->
+    <div class="stars" id="starsContainer"><div class="star" style="width: 2.26482px; height: 2.26482px; left: 17.8244vw; top: 49.1578vh; animation-delay: 1.86157s;"></div><div class="star rgb" style="width: 3.46295px; height: 3.46295px; left: 44.9251vw; top: 15.6064vh; animation-delay: 1.05677s;"></div><div class="star" style="width: 2.85175px; height: 2.85175px; left: 25.9691vw; top: 74.067vh; animation-delay: 1.14505s;"></div><div class="star rgb" style="width: 3.41957px; height: 3.41957px; left: 49.7846vw; top: 26.3352vh; animation-delay: 2.45473s;"></div><div class="star" style="width: 3.41984px; height: 3.41984px; left: 40.1861vw; top: 52.7455vh; animation-delay: 1.40398s;"></div><div class="star" style="width: 1.51201px; height: 1.51201px; left: 54.3327vw; top: 98.6469vh; animation-delay: 0.545433s;"></div><div class="star rgb" style="width: 2.99115px; height: 2.99115px; left: 79.6825vw; top: 6.41954vh; animation-delay: 1.76271s;"></div><div class="star" style="width: 2.47525px; height: 2.47525px; left: 75.6513vw; top: 52.5783vh; animation-delay: 0.792359s;"></div><div class="star" style="width: 2.83041px; height: 2.83041px; left: 58.004vw; top: 88.6696vh; animation-delay: 2.52833s;"></div><div class="star rgb" style="width: 2.49071px; height: 2.49071px; left: 44.3298vw; top: 12.7641vh; animation-delay: 0.189863s;"></div><div class="star" style="width: 2.37019px; height: 2.37019px; left: 97.3817vw; top: 52.7374vh; animation-delay: 2.43476s;"></div><div class="star" style="width: 3.7922px; height: 3.7922px; left: 29.3053vw; top: 8.47667vh; animation-delay: 0.574916s;"></div><div class="star" style="width: 2.86543px; height: 2.86543px; left: 25.8415vw; top: 57.9146vh; animation-delay: 2.16804s;"></div><div class="star" style="width: 1.17071px; height: 1.17071px; left: 43.433vw; top: 74.5242vh; animation-delay: 0.0901029s;"></div><div class="star rgb" style="width: 3.89944px; height: 3.89944px; left: 73.6005vw; top: 30.3945vh; animation-delay: 1.822s;"></div><div class="star rgb" style="width: 1.49351px; height: 1.49351px; left: 59.6792vw; top: 73.0608vh; animation-delay: 0.420313s;"></div><div class="star" style="width: 3.94257px; height: 3.94257px; left: 19.1682vw; top: 18.3033vh; animation-delay: 2.97903s;"></div><div class="star" style="width: 2.78297px; height: 2.78297px; left: 79.7515vw; top: 49.9864vh; animation-delay: 2.37548s;"></div><div class="star" style="width: 1.38158px; height: 1.38158px; left: 24.9235vw; top: 78.617vh; animation-delay: 2.77747s;"></div><div class="star" style="width: 3.40683px; height: 3.40683px; left: 33.8323vw; top: 65.6786vh; animation-delay: 1.85458s;"></div><div class="star" style="width: 3.91806px; height: 3.91806px; left: 0.814116vw; top: 49.3732vh; animation-delay: 1.52014s;"></div><div class="star" style="width: 3.40152px; height: 3.40152px; left: 9.33273vw; top: 69.5124vh; animation-delay: 1.49485s;"></div><div class="star rgb" style="width: 3.6704px; height: 3.6704px; left: 46.9871vw; top: 72.6917vh; animation-delay: 2.90332s;"></div><div class="star" style="width: 1.94756px; height: 1.94756px; left: 49.543vw; top: 94.2422vh; animation-delay: 2.31285s;"></div><div class="star" style="width: 1.42297px; height: 1.42297px; left: 32.2875vw; top: 65.674vh; animation-delay: 0.425047s;"></div><div class="star" style="width: 2.75906px; height: 2.75906px; left: 22.6544vw; top: 77.2802vh; animation-delay: 2.91192s;"></div><div class="star" style="width: 3.71019px; height: 3.71019px; left: 32.9674vw; top: 91.0021vh; animation-delay: 2.38128s;"></div><div class="star" style="width: 2.81171px; height: 2.81171px; left: 36.5476vw; top: 64.5735vh; animation-delay: 2.06484s;"></div><div class="star" style="width: 2.09655px; height: 2.09655px; left: 18.5106vw; top: 69.993vh; animation-delay: 1.80533s;"></div><div class="star" style="width: 2.72946px; height: 2.72946px; left: 52.3394vw; top: 52.0168vh; animation-delay: 2.66221s;"></div><div class="star" style="width: 2.78059px; height: 2.78059px; left: 28.7693vw; top: 51.5949vh; animation-delay: 0.71567s;"></div><div class="star rgb" style="width: 3.66519px; height: 3.66519px; left: 16.7135vw; top: 2.8433vh; animation-delay: 2.24135s;"></div><div class="star rgb" style="width: 3.20226px; height: 3.20226px; left: 70.7607vw; top: 22.2711vh; animation-delay: 0.218586s;"></div><div class="star" style="width: 1.21331px; height: 1.21331px; left: 65.135vw; top: 9.58199vh; animation-delay: 1.37538s;"></div><div class="star" style="width: 1.85983px; height: 1.85983px; left: 21.4727vw; top: 93.6492vh; animation-delay: 1.33119s;"></div><div class="star" style="width: 2.62045px; height: 2.62045px; left: 45.8708vw; top: 88.2844vh; animation-delay: 2.16056s;"></div><div class="star rgb" style="width: 3.11297px; height: 3.11297px; left: 88.5251vw; top: 98.3073vh; animation-delay: 0.229182s;"></div><div class="star" style="width: 1.04359px; height: 1.04359px; left: 29.8812vw; top: 86.6264vh; animation-delay: 1.86403s;"></div><div class="star" style="width: 2.64617px; height: 2.64617px; left: 33.8138vw; top: 84.7822vh; animation-delay: 0.347544s;"></div><div class="star" style="width: 1.28983px; height: 1.28983px; left: 97.7428vw; top: 55.6238vh; animation-delay: 2.64317s;"></div><div class="star" style="width: 3.59531px; height: 3.59531px; left: 9.05976vw; top: 51.7724vh; animation-delay: 0.0148059s;"></div><div class="star" style="width: 2.64573px; height: 2.64573px; left: 81.3127vw; top: 1.48662vh; animation-delay: 0.681965s;"></div><div class="star rgb" style="width: 3.89839px; height: 3.89839px; left: 32.4972vw; top: 65.9353vh; animation-delay: 0.396063s;"></div><div class="star" style="width: 1.32856px; height: 1.32856px; left: 20.74vw; top: 86.3496vh; animation-delay: 0.883313s;"></div><div class="star" style="width: 2.41133px; height: 2.41133px; left: 36.6058vw; top: 38.9059vh; animation-delay: 1.14171s;"></div><div class="star rgb" style="width: 2.11925px; height: 2.11925px; left: 54.4698vw; top: 48.1691vh; animation-delay: 1.20551s;"></div><div class="star rgb" style="width: 2.9891px; height: 2.9891px; left: 40.0141vw; top: 24.5091vh; animation-delay: 1.14742s;"></div><div class="star" style="width: 1.57015px; height: 1.57015px; left: 19.7009vw; top: 68.4206vh; animation-delay: 1.09938s;"></div><div class="star rgb" style="width: 3.23983px; height: 3.23983px; left: 96.4049vw; top: 4.40285vh; animation-delay: 2.5388s;"></div><div class="star" style="width: 2.79361px; height: 2.79361px; left: 62.1652vw; top: 16.1037vh; animation-delay: 0.830101s;"></div><div class="star" style="width: 3.5318px; height: 3.5318px; left: 97.0766vw; top: 70.7861vh; animation-delay: 2.394s;"></div><div class="star" style="width: 2.74405px; height: 2.74405px; left: 81.3955vw; top: 14.5727vh; animation-delay: 0.865773s;"></div><div class="star" style="width: 2.51798px; height: 2.51798px; left: 95.5402vw; top: 84.3286vh; animation-delay: 0.560489s;"></div><div class="star rgb" style="width: 2.81439px; height: 2.81439px; left: 39.6731vw; top: 74.5086vh; animation-delay: 0.922504s;"></div><div class="star" style="width: 1.4814px; height: 1.4814px; left: 65.3817vw; top: 35.8607vh; animation-delay: 1.81492s;"></div><div class="star" style="width: 3.70034px; height: 3.70034px; left: 55.5614vw; top: 76.7119vh; animation-delay: 2.63031s;"></div><div class="star" style="width: 2.49583px; height: 2.49583px; left: 33.3532vw; top: 99.9039vh; animation-delay: 0.75675s;"></div><div class="star" style="width: 3.71548px; height: 3.71548px; left: 9.33266vw; top: 78.1109vh; animation-delay: 1.69464s;"></div><div class="star" style="width: 3.07805px; height: 3.07805px; left: 70.5078vw; top: 47.7373vh; animation-delay: 0.428724s;"></div><div class="star" style="width: 3.88308px; height: 3.88308px; left: 44.0154vw; top: 56.5049vh; animation-delay: 1.71291s;"></div><div class="star" style="width: 3.43414px; height: 3.43414px; left: 72.4798vw; top: 47.967vh; animation-delay: 2.68652s;"></div><div class="star" style="width: 1.89171px; height: 1.89171px; left: 32.6605vw; top: 50.3171vh; animation-delay: 1.96094s;"></div><div class="star" style="width: 3.30047px; height: 3.30047px; left: 16.3442vw; top: 96.6239vh; animation-delay: 2.43618s;"></div><div class="star" style="width: 1.86465px; height: 1.86465px; left: 42.6689vw; top: 88.4688vh; animation-delay: 0.238432s;"></div><div class="star" style="width: 2.26124px; height: 2.26124px; left: 69.4859vw; top: 17.9704vh; animation-delay: 1.58466s;"></div><div class="star" style="width: 3.00327px; height: 3.00327px; left: 1.0643vw; top: 86.1809vh; animation-delay: 1.27986s;"></div><div class="star" style="width: 1.48502px; height: 1.48502px; left: 12.0662vw; top: 20.5091vh; animation-delay: 1.26761s;"></div><div class="star rgb" style="width: 2.91201px; height: 2.91201px; left: 18.7618vw; top: 43.0357vh; animation-delay: 0.719823s;"></div><div class="star" style="width: 1.91369px; height: 1.91369px; left: 69.5449vw; top: 26.7417vh; animation-delay: 1.90051s;"></div><div class="star" style="width: 1.13987px; height: 1.13987px; left: 82.7518vw; top: 60.0506vh; animation-delay: 0.0438244s;"></div><div class="star" style="width: 2.97494px; height: 2.97494px; left: 90.3367vw; top: 11.9324vh; animation-delay: 2.91908s;"></div><div class="star" style="width: 3.8131px; height: 3.8131px; left: 41.4222vw; top: 6.58334vh; animation-delay: 2.11751s;"></div><div class="star rgb" style="width: 2.532px; height: 2.532px; left: 91.1532vw; top: 56.2355vh; animation-delay: 0.5855s;"></div><div class="star rgb" style="width: 2.2021px; height: 2.2021px; left: 87.516vw; top: 71.76vh; animation-delay: 1.10508s;"></div><div class="star" style="width: 2.67638px; height: 2.67638px; left: 27.3704vw; top: 41.1081vh; animation-delay: 2.84001s;"></div><div class="star" style="width: 1.11427px; height: 1.11427px; left: 35.4168vw; top: 41.3013vh; animation-delay: 0.255645s;"></div><div class="star" style="width: 1.83971px; height: 1.83971px; left: 76.6895vw; top: 64.3382vh; animation-delay: 1.26274s;"></div><div class="star" style="width: 1.00588px; height: 1.00588px; left: 99.8215vw; top: 47.0349vh; animation-delay: 1.49781s;"></div><div class="star rgb" style="width: 1.33345px; height: 1.33345px; left: 21.7675vw; top: 21.3069vh; animation-delay: 1.5215s;"></div><div class="star rgb" style="width: 3.97385px; height: 3.97385px; left: 67.7386vw; top: 72.9576vh; animation-delay: 1.27032s;"></div><div class="star" style="width: 1.75617px; height: 1.75617px; left: 76.3866vw; top: 28.9889vh; animation-delay: 2.90351s;"></div><div class="star" style="width: 2.10465px; height: 2.10465px; left: 85.1111vw; top: 28.1299vh; animation-delay: 0.184482s;"></div><div class="star" style="width: 2.25182px; height: 2.25182px; left: 86.1225vw; top: 80.926vh; animation-delay: 2.26925s;"></div><div class="star" style="width: 3.39909px; height: 3.39909px; left: 4.85922vw; top: 86.6023vh; animation-delay: 1.29749s;"></div><div class="star" style="width: 3.52761px; height: 3.52761px; left: 36.4384vw; top: 6.29171vh; animation-delay: 2.16141s;"></div><div class="star" style="width: 3.25966px; height: 3.25966px; left: 30.7958vw; top: 69.1041vh; animation-delay: 2.78427s;"></div><div class="star" style="width: 3.45964px; height: 3.45964px; left: 12.2104vw; top: 56.5945vh; animation-delay: 2.66171s;"></div><div class="star" style="width: 2.56629px; height: 2.56629px; left: 30.8982vw; top: 73.1826vh; animation-delay: 1.59498s;"></div><div class="star" style="width: 3.89379px; height: 3.89379px; left: 80.7638vw; top: 61.3881vh; animation-delay: 2.64017s;"></div><div class="star" style="width: 1.83211px; height: 1.83211px; left: 52.776vw; top: 11.3493vh; animation-delay: 0.583696s;"></div><div class="star rgb" style="width: 3.87873px; height: 3.87873px; left: 5.54416vw; top: 23.791vh; animation-delay: 2.07474s;"></div><div class="star" style="width: 3.73px; height: 3.73px; left: 34.7536vw; top: 99.2419vh; animation-delay: 1.6877s;"></div><div class="star" style="width: 3.34018px; height: 3.34018px; left: 56.9283vw; top: 27.6926vh; animation-delay: 0.427367s;"></div><div class="star" style="width: 1.56704px; height: 1.56704px; left: 8.39836vw; top: 93.5976vh; animation-delay: 0.423655s;"></div><div class="star" style="width: 2.82734px; height: 2.82734px; left: 82.7201vw; top: 24.1521vh; animation-delay: 2.97075s;"></div><div class="star" style="width: 2.48464px; height: 2.48464px; left: 90.128vw; top: 80.5536vh; animation-delay: 0.177553s;"></div><div class="star rgb" style="width: 2.64035px; height: 2.64035px; left: 56.6762vw; top: 24.4527vh; animation-delay: 2.2691s;"></div><div class="star" style="width: 2.60137px; height: 2.60137px; left: 49.7751vw; top: 39.9358vh; animation-delay: 1.71503s;"></div><div class="star" style="width: 3.23829px; height: 3.23829px; left: 60.4541vw; top: 60.8046vh; animation-delay: 0.68366s;"></div><div class="star" style="width: 1.786px; height: 1.786px; left: 68.825vw; top: 12.5832vh; animation-delay: 0.229483s;"></div><div class="star" style="width: 1.41616px; height: 1.41616px; left: 13.4145vw; top: 92.2739vh; animation-delay: 1.27694s;"></div><div class="star" style="width: 3.61337px; height: 3.61337px; left: 54.8829vw; top: 1.95685vh; animation-delay: 0.090317s;"></div><div class="star" style="width: 2.77788px; height: 2.77788px; left: 8.79104vw; top: 68.7929vh; animation-delay: 1.62062s;"></div><div class="star rgb" style="width: 2.46116px; height: 2.46116px; left: 94.7963vw; top: 47.2155vh; animation-delay: 0.244033s;"></div><div class="star" style="width: 3.87883px; height: 3.87883px; left: 28.8929vw; top: 65.9875vh; animation-delay: 1.15949s;"></div><div class="star" style="width: 1.45549px; height: 1.45549px; left: 96.1496vw; top: 3.20402vh; animation-delay: 2.62679s;"></div><div class="star" style="width: 1.16713px; height: 1.16713px; left: 59.7323vw; top: 45.1646vh; animation-delay: 1.12486s;"></div><div class="star" style="width: 3.26283px; height: 3.26283px; left: 87.7542vw; top: 34.0821vh; animation-delay: 0.816215s;"></div><div class="star" style="width: 2.49932px; height: 2.49932px; left: 85.8223vw; top: 35.7449vh; animation-delay: 0.526619s;"></div><div class="star" style="width: 1.24366px; height: 1.24366px; left: 11.0121vw; top: 33.1873vh; animation-delay: 2.12508s;"></div><div class="star" style="width: 3.93187px; height: 3.93187px; left: 70.8545vw; top: 40.7278vh; animation-delay: 2.03799s;"></div><div class="star" style="width: 1.28469px; height: 1.28469px; left: 73.0828vw; top: 56.5474vh; animation-delay: 1.55159s;"></div><div class="star" style="width: 3.45001px; height: 3.45001px; left: 38.4982vw; top: 36.3095vh; animation-delay: 1.90025s;"></div><div class="star rgb" style="width: 3.19335px; height: 3.19335px; left: 85.1618vw; top: 68.1368vh; animation-delay: 1.63957s;"></div><div class="star rgb" style="width: 3.7437px; height: 3.7437px; left: 47.6859vw; top: 67.5846vh; animation-delay: 0.172376s;"></div><div class="star" style="width: 2.68263px; height: 2.68263px; left: 80.5698vw; top: 45.895vh; animation-delay: 1.19114s;"></div><div class="star rgb" style="width: 1.17895px; height: 1.17895px; left: 37.5688vw; top: 89.5792vh; animation-delay: 2.3128s;"></div><div class="star rgb" style="width: 3.10735px; height: 3.10735px; left: 6.57289vw; top: 97.7961vh; animation-delay: 0.70446s;"></div><div class="star" style="width: 2.93085px; height: 2.93085px; left: 51.6241vw; top: 28.8391vh; animation-delay: 2.28063s;"></div><div class="star" style="width: 1.69588px; height: 1.69588px; left: 34.6595vw; top: 62.8548vh; animation-delay: 0.919588s;"></div><div class="star" style="width: 1.60452px; height: 1.60452px; left: 58.6617vw; top: 22.2921vh; animation-delay: 1.63798s;"></div><div class="star" style="width: 2.22889px; height: 2.22889px; left: 32.1498vw; top: 1.63458vh; animation-delay: 2.49239s;"></div><div class="star" style="width: 1.22659px; height: 1.22659px; left: 85.588vw; top: 79.1576vh; animation-delay: 1.05139s;"></div><div class="star" style="width: 3.63046px; height: 3.63046px; left: 42.5529vw; top: 87.1535vh; animation-delay: 2.37951s;"></div><div class="star" style="width: 3.81269px; height: 3.81269px; left: 68.5537vw; top: 63.914vh; animation-delay: 1.28218s;"></div><div class="star" style="width: 3.95716px; height: 3.95716px; left: 1.99404vw; top: 45.6442vh; animation-delay: 2.37217s;"></div><div class="star" style="width: 2.43285px; height: 2.43285px; left: 76.5723vw; top: 54.3874vh; animation-delay: 2.49645s;"></div><div class="star" style="width: 2.01112px; height: 2.01112px; left: 7.36059vw; top: 84.73vh; animation-delay: 1.53627s;"></div><div class="star" style="width: 3.65299px; height: 3.65299px; left: 82.7438vw; top: 58.4633vh; animation-delay: 2.04977s;"></div><div class="star" style="width: 2.21842px; height: 2.21842px; left: 90.2175vw; top: 31.69vh; animation-delay: 1.90369s;"></div><div class="star" style="width: 2.94888px; height: 2.94888px; left: 35.8664vw; top: 39.4955vh; animation-delay: 1.53001s;"></div><div class="star rgb" style="width: 2.8914px; height: 2.8914px; left: 19.8215vw; top: 84.7463vh; animation-delay: 0.299464s;"></div><div class="star" style="width: 1.74031px; height: 1.74031px; left: 39.9959vw; top: 26.6224vh; animation-delay: 2.76597s;"></div><div class="star" style="width: 1.28138px; height: 1.28138px; left: 85.6121vw; top: 65.677vh; animation-delay: 2.31551s;"></div><div class="star" style="width: 1.90742px; height: 1.90742px; left: 62.8399vw; top: 19.4692vh; animation-delay: 0.818216s;"></div><div class="star" style="width: 3.81311px; height: 3.81311px; left: 72.0403vw; top: 43.3626vh; animation-delay: 0.711145s;"></div><div class="star" style="width: 3.39721px; height: 3.39721px; left: 44.3478vw; top: 53.9129vh; animation-delay: 0.0477323s;"></div><div class="star" style="width: 2.20693px; height: 2.20693px; left: 45.2741vw; top: 17.2525vh; animation-delay: 1.22605s;"></div><div class="star" style="width: 3.2217px; height: 3.2217px; left: 67.211vw; top: 89.4955vh; animation-delay: 1.4436s;"></div><div class="star" style="width: 1.32477px; height: 1.32477px; left: 18.5292vw; top: 68.6371vh; animation-delay: 2.1827s;"></div><div class="star" style="width: 1.58012px; height: 1.58012px; left: 18.4076vw; top: 3.36456vh; animation-delay: 2.54535s;"></div><div class="star" style="width: 1.13141px; height: 1.13141px; left: 75.14vw; top: 41.394vh; animation-delay: 2.61986s;"></div><div class="star" style="width: 1.5301px; height: 1.5301px; left: 7.7553vw; top: 13.4421vh; animation-delay: 0.0860513s;"></div><div class="star" style="width: 1.64039px; height: 1.64039px; left: 11.1043vw; top: 59.9681vh; animation-delay: 2.5793s;"></div><div class="star rgb" style="width: 3.65927px; height: 3.65927px; left: 73.236vw; top: 84.1826vh; animation-delay: 1.22199s;"></div><div class="star" style="width: 3.94104px; height: 3.94104px; left: 48.0157vw; top: 30.3611vh; animation-delay: 0.654364s;"></div><div class="star" style="width: 1.20618px; height: 1.20618px; left: 44.0332vw; top: 70.021vh; animation-delay: 1.18063s;"></div><div class="star" style="width: 1.98099px; height: 1.98099px; left: 76.4887vw; top: 53.8969vh; animation-delay: 2.82059s;"></div><div class="star" style="width: 1.26499px; height: 1.26499px; left: 28.7903vw; top: 90.3569vh; animation-delay: 0.73122s;"></div><div class="star" style="width: 1.26476px; height: 1.26476px; left: 8.58881vw; top: 60.0654vh; animation-delay: 0.259078s;"></div><div class="star" style="width: 3.91962px; height: 3.91962px; left: 39.1702vw; top: 77.498vh; animation-delay: 0.260218s;"></div><div class="star" style="width: 1.78192px; height: 1.78192px; left: 38.4537vw; top: 42.051vh; animation-delay: 0.986016s;"></div><div class="star rgb" style="width: 2.76192px; height: 2.76192px; left: 58.492vw; top: 79.4643vh; animation-delay: 1.87143s;"></div><div class="star rgb" style="width: 1.00781px; height: 1.00781px; left: 26.7225vw; top: 71.6334vh; animation-delay: 0.69013s;"></div><div class="star" style="width: 3.22811px; height: 3.22811px; left: 38.5373vw; top: 55.4201vh; animation-delay: 2.61799s;"></div><div class="star" style="width: 3.37453px; height: 3.37453px; left: 91.031vw; top: 56.1034vh; animation-delay: 0.613876s;"></div><div class="star" style="width: 1.15291px; height: 1.15291px; left: 32.382vw; top: 90.0083vh; animation-delay: 2.05657s;"></div><div class="star" style="width: 3.56006px; height: 3.56006px; left: 12.1314vw; top: 21.2827vh; animation-delay: 0.795846s;"></div><div class="star" style="width: 3.41788px; height: 3.41788px; left: 27.2098vw; top: 62.7129vh; animation-delay: 2.19747s;"></div><div class="star" style="width: 3.65197px; height: 3.65197px; left: 63.3804vw; top: 98.9818vh; animation-delay: 2.6065s;"></div><div class="star" style="width: 3.86804px; height: 3.86804px; left: 72.8374vw; top: 37.8591vh; animation-delay: 1.96917s;"></div><div class="star" style="width: 3.84845px; height: 3.84845px; left: 60.8092vw; top: 57.6968vh; animation-delay: 1.53826s;"></div><div class="star" style="width: 3.94918px; height: 3.94918px; left: 69.0246vw; top: 44.9393vh; animation-delay: 0.680046s;"></div><div class="star" style="width: 2.38381px; height: 2.38381px; left: 88.7631vw; top: 6.95718vh; animation-delay: 2.52491s;"></div><div class="star" style="width: 1.14882px; height: 1.14882px; left: 0.773194vw; top: 60.5121vh; animation-delay: 1.92549s;"></div><div class="star rgb" style="width: 2.30394px; height: 2.30394px; left: 70.9069vw; top: 4.56874vh; animation-delay: 1.00066s;"></div><div class="star" style="width: 3.90509px; height: 3.90509px; left: 96.2388vw; top: 87.0613vh; animation-delay: 2.38329s;"></div><div class="star" style="width: 2.19853px; height: 2.19853px; left: 88.0903vw; top: 48.1286vh; animation-delay: 2.49752s;"></div><div class="star" style="width: 1.4978px; height: 1.4978px; left: 41.1288vw; top: 63.6781vh; animation-delay: 0.314658s;"></div><div class="star" style="width: 1.99536px; height: 1.99536px; left: 92.601vw; top: 84.7199vh; animation-delay: 1.39736s;"></div><div class="star" style="width: 2.23637px; height: 2.23637px; left: 77.4364vw; top: 73.8331vh; animation-delay: 0.950137s;"></div><div class="star" style="width: 2.86357px; height: 2.86357px; left: 95.5286vw; top: 51.1972vh; animation-delay: 1.4344s;"></div><div class="star" style="width: 1.53199px; height: 1.53199px; left: 68.1086vw; top: 63.5832vh; animation-delay: 2.40085s;"></div><div class="star" style="width: 1.99516px; height: 1.99516px; left: 83.1023vw; top: 73.0832vh; animation-delay: 2.38985s;"></div><div class="star" style="width: 1.88783px; height: 1.88783px; left: 88.8003vw; top: 80.2997vh; animation-delay: 2.01997s;"></div><div class="star rgb" style="width: 3.9277px; height: 3.9277px; left: 34.1938vw; top: 85.9099vh; animation-delay: 0.717572s;"></div><div class="star rgb" style="width: 3.16792px; height: 3.16792px; left: 8.85911vw; top: 58.8836vh; animation-delay: 0.202002s;"></div><div class="star" style="width: 1.97839px; height: 1.97839px; left: 71.0125vw; top: 77.0364vh; animation-delay: 1.72962s;"></div><div class="star rgb" style="width: 1.43893px; height: 1.43893px; left: 87.8278vw; top: 73.7708vh; animation-delay: 1.81966s;"></div><div class="star rgb" style="width: 1.99553px; height: 1.99553px; left: 12.8476vw; top: 7.20965vh; animation-delay: 0.0962629s;"></div></div>
+
+    <!-- ==========================================================
+         🌈 LASERS RGB
+    =========================================================== -->
+    <div id="laser1" class="laser-horizontal"></div>
+    <div id="laser2" class="laser-horizontal"></div>
+    <div id="laser3" class="laser-horizontal"></div>
+
+    <div id="laserD1" class="laser-diagonal"></div>
+    <div id="laserD2" class="laser-diagonal"></div>
+
+    <div id="laserV1" class="laser-vertical"></div>
+    <div id="laserV2" class="laser-vertical"></div>
+
+    <!-- ==========================================================
+         🎆 PARTICULES RGB
+    =========================================================== -->
+    <div id="particlesContainer"><div class="rgb-particle" style="background: rgb(0, 119, 255); box-shadow: rgb(0, 119, 255) 0px 0px 10px, rgb(0, 119, 255) 0px 0px 20px; left: 85.6394vw; animation-delay: 8.16832s; animation-duration: 14.6289s;"></div><div class="rgb-particle" style="background: rgb(0, 119, 255); box-shadow: rgb(0, 119, 255) 0px 0px 10px, rgb(0, 119, 255) 0px 0px 20px; left: 38.3037vw; animation-delay: 4.72964s; animation-duration: 10.3316s;"></div><div class="rgb-particle" style="background: rgb(255, 0, 0); box-shadow: rgb(255, 0, 0) 0px 0px 10px, rgb(255, 0, 0) 0px 0px 20px; left: 83.114vw; animation-delay: 12.3898s; animation-duration: 19.6929s;"></div><div class="rgb-particle" style="background: rgb(119, 0, 255); box-shadow: rgb(119, 0, 255) 0px 0px 10px, rgb(119, 0, 255) 0px 0px 20px; left: 23.7219vw; animation-delay: 10.4296s; animation-duration: 17.179s;"></div><div class="rgb-particle" style="background: rgb(119, 0, 255); box-shadow: rgb(119, 0, 255) 0px 0px 10px, rgb(119, 0, 255) 0px 0px 20px; left: 51.4613vw; animation-delay: 7.05462s; animation-duration: 18.004s;"></div><div class="rgb-particle" style="background: rgb(0, 255, 255); box-shadow: rgb(0, 255, 255) 0px 0px 10px, rgb(0, 255, 255) 0px 0px 20px; left: 79.988vw; animation-delay: 5.96288s; animation-duration: 10.7717s;"></div><div class="rgb-particle" style="background: rgb(255, 0, 0); box-shadow: rgb(255, 0, 0) 0px 0px 10px, rgb(255, 0, 0) 0px 0px 20px; left: 71.062vw; animation-delay: 10.6523s; animation-duration: 18.5211s;"></div><div class="rgb-particle" style="background: rgb(255, 0, 255); box-shadow: rgb(255, 0, 255) 0px 0px 10px, rgb(255, 0, 255) 0px 0px 20px; left: 37.4477vw; animation-delay: 1.16374s; animation-duration: 18.4799s;"></div><div class="rgb-particle" style="background: rgb(0, 255, 0); box-shadow: rgb(0, 255, 0) 0px 0px 10px, rgb(0, 255, 0) 0px 0px 20px; left: 68.6735vw; animation-delay: 9.52906s; animation-duration: 15.1972s;"></div><div class="rgb-particle" style="background: rgb(119, 0, 255); box-shadow: rgb(119, 0, 255) 0px 0px 10px, rgb(119, 0, 255) 0px 0px 20px; left: 40.1355vw; animation-delay: 12.2196s; animation-duration: 12.4397s;"></div><div class="rgb-particle" style="background: rgb(255, 0, 0); box-shadow: rgb(255, 0, 0) 0px 0px 10px, rgb(255, 0, 0) 0px 0px 20px; left: 63.4364vw; animation-delay: 11.4093s; animation-duration: 15.0239s;"></div><div class="rgb-particle" style="background: rgb(255, 0, 0); box-shadow: rgb(255, 0, 0) 0px 0px 10px, rgb(255, 0, 0) 0px 0px 20px; left: 61.0288vw; animation-delay: 4.8278s; animation-duration: 13.4552s;"></div><div class="rgb-particle" style="background: rgb(255, 119, 0); box-shadow: rgb(255, 119, 0) 0px 0px 10px, rgb(255, 119, 0) 0px 0px 20px; left: 1.19433vw; animation-delay: 8.72827s; animation-duration: 19.4974s;"></div><div class="rgb-particle" style="background: rgb(0, 255, 255); box-shadow: rgb(0, 255, 255) 0px 0px 10px, rgb(0, 255, 255) 0px 0px 20px; left: 10.6346vw; animation-delay: 11.0546s; animation-duration: 15.6113s;"></div><div class="rgb-particle" style="background: rgb(0, 255, 0); box-shadow: rgb(0, 255, 0) 0px 0px 10px, rgb(0, 255, 0) 0px 0px 20px; left: 74.7567vw; animation-delay: 14.6023s; animation-duration: 15.4875s;"></div><div class="rgb-particle" style="background: rgb(0, 255, 0); box-shadow: rgb(0, 255, 0) 0px 0px 10px, rgb(0, 255, 0) 0px 0px 20px; left: 38.8546vw; animation-delay: 12.6429s; animation-duration: 16.4691s;"></div><div class="rgb-particle" style="background: rgb(255, 255, 0); box-shadow: rgb(255, 255, 0) 0px 0px 10px, rgb(255, 255, 0) 0px 0px 20px; left: 11.4832vw; animation-delay: 8.02431s; animation-duration: 18.4637s;"></div><div class="rgb-particle" style="background: rgb(0, 119, 255); box-shadow: rgb(0, 119, 255) 0px 0px 10px, rgb(0, 119, 255) 0px 0px 20px; left: 96.7561vw; animation-delay: 1.95284s; animation-duration: 12.9373s;"></div><div class="rgb-particle" style="background: rgb(255, 119, 0); box-shadow: rgb(255, 119, 0) 0px 0px 10px, rgb(255, 119, 0) 0px 0px 20px; left: 27.6945vw; animation-delay: 14.4722s; animation-duration: 19.5125s;"></div><div class="rgb-particle" style="background: rgb(0, 255, 255); box-shadow: rgb(0, 255, 255) 0px 0px 10px, rgb(0, 255, 255) 0px 0px 20px; left: 30.5535vw; animation-delay: 13.631s; animation-duration: 12.4194s;"></div></div>
+
+    <!-- ===================== BOUTON MENU 3 POINTS ===================== -->
+    <div class="menu-dots-btn" id="menuDotsBtn">
+        <div class="menu-dot"></div>
+        <div class="menu-dot"></div>
+        <div class="menu-dot"></div>
+    </div>
+
+    <!-- ===================== OVERLAY MOBILE ===================== -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ===================== MENU LATÉRAL ===================== -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-title">✨ MENU ✨</div>
+        <a href="#accueil">
+            <span class="icon">🏠</span>
+            <span>Accueil</span>
+        </a>
+        <a href="#jeux">
+            <span class="icon">🎮</span>
+            <span>Nos Jeux</span>
+        </a>
+        <a href="#" id="openContactBtn">
+            <span class="icon">✉️</span>
+            <span>Nous contacter</span>
+        </a>
+    </div>
+
+    <!-- ===================== FENÊTRE POPUP CONTACT ===================== -->
+    <div class="contact-overlay" id="contactOverlay">
+        <div class="contact-modal">
+            <button class="close-modal" id="closeContactBtn"></button>
+            <h2>📬 Nous Contacter</h2>
+            
+            <div class="contact-item" onclick="copyToClipboard('site.skygames@outlook.fr')">
+                <div class="contact-icon">📧</div>
+                <div class="contact-text">
+                    <strong>EMAIL</strong>
+                    <span>site.skygames@outlook.fr</span>
+                </div>
+            </div>
+            
+            <div class="contact-item" onclick="copyToClipboard('07.63.14.45.67')">
+                <div class="contact-icon">📱</div>
+                <div class="contact-text">
+                    <strong>TÉLÉPHONE</strong>
+                    <span>07.63.14.45.67</span>
+                </div>
+            </div>
+            
+            <div class="contact-item" onclick="window.open('https://instagram.com/skygames_juniorasso', '_blank')">
+                <div class="contact-icon">📸</div>
+                <div class="contact-text">
+                    <strong>INSTAGRAM</strong>
+                    <span>@skygames_juniorasso</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== CONTENU ===================== -->
+    <div class="content" id="mainContent">
+        <img src="Logo SKYGAMES.png" class="logo" alt="Logo SkyGames">
+
+        <h1 id="accueil">SkyGames 🎮</h1>
+        <p class="subtitle">✨ Bienvenue dans votre monde ✨</p>
+        <p>Découvrez des jeux créés par nous-mêmes dans un univers futuriste.</p>
+
+        <h2 class="section-title" id="jeux">🎮 Nos Jeux</h2>
+
+        <div class="game-container">
+            <div class="game-box" onclick="window.location.href='dessinator.html'">
+                <p><strong>Jeu 1</strong> - Dessinator</p>
+            </div>
+            <div class="game-box">
+                <p><strong>Jeu 2</strong> - février 2026</p>
+            </div>
+            <div class="game-box">
+                <p><strong>Jeu 3</strong> - À venir</p>
+            </div>
+            <div class="game-box">
+                <p><strong>Jeu 4</strong> - À venir</p>
+            </div>
+            <div class="game-box">
+                <p><strong>Jeu 5</strong> - À venir</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================================
+        // 🌟 CRÉATION DU FOND ÉTOILÉ (avec étoiles RGB)
+        // ==========================================================
+        function createStars() {
+            const starsContainer = document.getElementById('starsContainer');
+            const starCount = 180;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // 20% des étoiles sont RGB
+                if (Math.random() < 0.2) {
+                    star.classList.add('rgb');
+                }
+                
+                const size = Math.random() * 3 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.animationDelay = `${Math.random() * 3}s`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // ==========================================================
+        // 🎆 CRÉATION DES PARTICULES RGB FLOTTANTES
+        // ==========================================================
+        function createRGBParticles() {
+            const container = document.getElementById('particlesContainer');
+            const colors = ['#ff0000', '#ff7700', '#ffff00', '#00ff00', '#00ffff', '#0077ff', '#7700ff', '#ff00ff'];
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('rgb-particle');
+                
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.background = color;
+                particle.style.boxShadow = `0 0 10px ${color}, 0 0 20px ${color}`;
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                particle.style.animationDuration = `${10 + Math.random() * 10}s`;
+                
+                container.appendChild(particle);
+            }
+        }
+
+        // ==========================================================
+        // 📍 GESTION DU MENU 3 POINTS
+        // ==========================================================
+        function setupMenu() {
+            const menuBtn = document.getElementById('menuDotsBtn');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const mainContent = document.getElementById('mainContent');
+            
+            function toggleMenu() {
+                menuBtn.classList.toggle('active');
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+                
+                if (window.innerWidth > 768) {
+                    mainContent.classList.toggle('shifted');
+                }
+                
+                if (sidebar.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            }
+            
+            menuBtn.addEventListener('click', toggleMenu);
+            overlay.addEventListener('click', toggleMenu);
+            
+            // Fermer avec les liens (sauf contact)
+            document.querySelectorAll('.sidebar a:not(#openContactBtn)').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        toggleMenu();
+                    }
+                });
+            });
+            
+            // Touche Échap
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && sidebar.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        }
+
+        // ==========================================================
+        // 🪟 GESTION DE LA FENÊTRE CONTACT
+        // ==========================================================
+        function setupContactModal() {
+            const openBtn = document.getElementById('openContactBtn');
+            const closeBtn = document.getElementById('closeContactBtn');
+            const overlay = document.getElementById('contactOverlay');
+            
+            function openContact(e) {
+                e.preventDefault();
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function closeContact() {
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            
+            openBtn.addEventListener('click', openContact);
+            closeBtn.addEventListener('click', closeContact);
+            
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    closeContact();
+                }
+            });
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                    closeContact();
+                }
+            });
+        }
+
+        // ==========================================================
+        // 📋 COPIER DANS LE PRESSE-PAPIER
+        // ==========================================================
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Animation de confirmation
+                const items = document.querySelectorAll('.contact-item');
+                items.forEach(item => {
+                    if (item.textContent.includes(text)) {
+                        item.style.background = 'rgba(0, 255, 100, 0.3)';
+                        item.style.boxShadow = '0 0 30px rgba(0, 255, 100, 0.5)';
+                        setTimeout(() => {
+                            item.style.background = '';
+                            item.style.boxShadow = '';
+                        }, 1000);
+                    }
+                });
+            });
+        }
+
+        // ==========================================================
+        // ⌨️ EFFET DE FRAPPE
+        // ==========================================================
+        function typeWriterEffect() {
+            const title = document.querySelector('h1');
+            const originalText = title.textContent;
+            title.textContent = '';
+            
+            let i = 0;
+            const typing = setInterval(() => {
+                if (i < originalText.length) {
+                    title.textContent += originalText.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typing);
+                }
+            }, 100);
+        }
+
+        // ==========================================================
+        // 🚀 INITIALISATION
+        // ==========================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            createRGBParticles();
+            setupMenu();
+            setupContactModal();
+            
+            if (window.scrollY === 0) {
+                setTimeout(typeWriterEffect, 500);
+            }
+            
+            // Effet clic sur les jeux
+            document.querySelectorAll('.game-box').forEach(box => {
+                box.addEventListener('click', function() {
+                    if (!this.getAttribute('onclick')?.includes('location')) {
+                        this.style.transform = 'scale(0.95)';
+                        this.style.boxShadow = '0 0 60px #00eaff';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                            this.style.boxShadow = '';
+                        }, 300);
+                    }
+                });
+            });
+        });
+    </script>
+
+</body></html>
