@@ -80,19 +80,7 @@
         @keyframes floatLaser {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-20px); }
-        }
-
-        .laser-diagonal {
-            position: fixed;
-            width: 200vw;
-            height: 3px;
-            background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, purple, red);
-            background-size: 400%;
-            animation: rgbLaserD 6s linear infinite;
-            filter: drop-shadow(0 0 10px cyan);
-            opacity: 0.6;
-            transform: rotate(35deg);
-            z-index: -1;
+        
         }
 
         @keyframes rgbLaserD {
@@ -120,8 +108,8 @@
             z-index: -1;
         }
 
-        #laserV1 { left: 5%; animation: rgbLaserV 3s linear infinite, floatLaserV 10s ease-in-out infinite; }
-        #laserV2 { left: 95%; animation: rgbLaserV 4s linear infinite 1s, floatLaserV 12s ease-in-out infinite 2s; }
+        #laserV1 { left: 1%; animation: rgbLaserV 3s linear infinite, floatLaserV 10s ease-in-out infinite; }
+        #laserV2 { left: 99%; animation: rgbLaserV 4s linear infinite 1s, floatLaserV 12s ease-in-out infinite 2s; }
 
         @keyframes rgbLaserV {
             from { background-position: 0% 0%; }
@@ -1108,6 +1096,7 @@
     </script>
 
 </body></html>
+
 
 
 
