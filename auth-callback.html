@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+  <head><meta charset="utf-8" /><title>Connexion…</title></head>
+  <body>Connexion en cours…</body>
+
+  <script type="module">
+    import { supabase } from "./supabase-client.js";
+
+    const url = new URL(window.location.href);
+    const code = url.searchParams.get("code");
+    if (code) {
+      await supabase.auth.exchangeCodeForSession(code);
+    }
+
+    window.location.href = "./";
+  </script>
+</html>
